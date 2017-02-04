@@ -2,6 +2,11 @@
 
 drive=$1
 name=$2
+directory="/mnt/$name"
 
 cryptsetup luksOpen /dev/$drive $name
-mount -t ext4 /dev/mapper/$name /mnt/$name
+
+if [ ! -d "$directory" ]; then
+  mkdir "$directory"
+fi
+mount -t ext4 /dev/mapper/$name "$directory"
